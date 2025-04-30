@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15-Minute Task Logger</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="light-theme">
+    <header>
+        <div class="logo">15-Minute Task Logger</div>
+        <div class="controls">
+            <button id="theme-toggle" class="theme-toggle" title="Toggle Light/Dark Theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <div id="startup-screen" class="container">
+        <h2>Welcome to 15-Minute Task Logger</h2>
+        <div class="project-selection">
+            <h3>Select a Project</h3>
+            <select id="existing-projects">
+                <option value="">-- Select Existing Project --</option>
+            </select>
+            <div class="or-divider">OR</div>
+            <div class="create-project">
+                <input type="text" id="new-project-name" placeholder="Enter new project name">
+                <button id="create-project-btn">Create New Project</button>
+            </div>
+        </div>
+    </div>
+
+    <main id="main-interface" class="container hidden">
+        <div class="project-header">
+            <h2 id="current-project-name">Project Name</h2>
+            <button id="switch-project-btn">Switch Project</button>
+        </div>
+        
+        <div class="panels">
+            <!-- Left Panel: Task Management -->
+            <section class="panel task-panel">
+                <div class="current-task-display">
+                    <h3>Current Task</h3>
+                    <div id="active-task-name">No task selected</div>
+                    
+                    <div class="timer-display">
+                        <div class="timer-progress">
+                            <div class="progress-bar" id="timer-progress-bar"></div>
+                        </div>
+                        <div class="timer-value" id="timer-value">15:00</div>
+                        <div class="timer-controls">
+                            <button id="timer-start" class="timer-btn"><i class="fas fa-play"></i> Start</button>
+                            <button id="timer-pause" class="timer-btn hidden"><i class="fas fa-pause"></i> Pause</button>
+                            <button id="timer-reset" class="timer-btn"><i class="fas fa-redo"></i> Reset</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="task-queue">
+                    <h3>Task Queue</h3>
+                    <div class="task-controls">
+                        <input type="text" id="new-task-input" placeholder="Enter new task">
+                        <button id="add-task-btn">Add Task</button>
+                    </div>
+                    <ul id="task-list" class="task-list"></ul>
+                </div>
+            </section>
+            
+            <!-- Right Panel: Visualization & History -->
+            <section class="panel visualization-panel">
+                <div class="timeframe-selector">
+                    <button class="timeframe-btn active" data-timeframe="day">Day</button>
+                    <button class="timeframe-btn" data-timeframe="week">Week</button>
+                    <button class="timeframe-btn" data-timeframe="month">Month</button>
+                    <button class="timeframe-btn" data-timeframe="ytd">YTD</button>
+                </div>
+                
+                <div class="graph-container">
+                    <canvas id="visualization-chart"></canvas>
+                </div>
+                
+                <div class="history-log">
+                    <h3>Session Log</h3>
+                    <div class="log-controls">
+                        <button id="export-log-btn">Export Data</button>
+                    </div>
+                    <div id="log-entries" class="log-entries"></div>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <!-- Timer Completion Modal -->
+    <div id="timer-completion-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Interval Complete!</h3>
+            <p>Continue with "<span id="completed-task-name"></span>" or select a new task?</p>
+            <div class="modal-buttons">
+                <button id="continue-task-btn">Continue</button>
+                <button id="select-new-task-btn">Select New Task</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Notification Settings</h3>
+            <div class="sound-settings">
+                <label for="sound-select">Notification Sound:</label>
+                <select id="sound-select">
+                    <option value="notification_sound.mp3">Default Sound</option>
+                    <option value="custom">Use Custom Sound</option>
+                </select>
+                <input type="file" id="custom-sound-input" class="hidden" accept=".mp3,.wav,.ogg">
+                <button id="custom-sound-btn" class="hidden">Choose File</button>
+                
+                <div class="volume-control">
+                    <label for="volume-slider">Volume:</label>
+                    <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.7">
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button id="settings-save-btn">Save</button>
+                <button id="settings-cancel-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <audio id="notification-sound" src="assets/sounds/notification_sound.mp3" loop></audio>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
