@@ -2,12 +2,12 @@
 // Main JavaScript implementation
 
 // Utility Functions
-function generateColorPalette(numColors) {
+function generateColorPalette(numColors) {//probablyhereyeah?
     const palette = [];
     for (let i = 0; i < numColors; i++) {
         // Use HSL for better control over hue distribution
         const hue = Math.floor((i * 360) / numColors);
-        const saturation = 70; // Moderate saturation (0-100)
+        const saturation = 87; // Moderate saturation (0-100)
         const lightness = 55; // Moderate lightness (0-100)
         palette.push(`hsl(${hue}, ${saturation}%, ${lightness}%)`);
     }
@@ -35,7 +35,7 @@ function dataURItoBlob(dataURI) {
 // Global variables
 const TIMER_DURATION = 15 * 60; // 15 minutes in seconds
 const LOGGING_INTERVAL = 10; // Log every 10 seconds
-const COLOR_PALETTE = generateColorPalette(64); // 64 different hues
+const COLOR_PALETTE = generateColorPalette(128); // 64 different hues
 
 let currentProject = null;
 let tasks = [];
@@ -342,20 +342,9 @@ function addNewTask() {
     
     // Assign color if not already assigned
     if (!taskColors[taskName]) {
-        const usedColors = Object.values(taskColors);
-        let colorIndex = 0;
-        
-        // Find an unused color
-        while (usedColors.includes(COLOR_PALETTE[colorIndex]) && colorIndex < COLOR_PALETTE.length) {
-            colorIndex++;
-        }
-        
-        // If all colors are used, just pick the next one
-        if (colorIndex >= COLOR_PALETTE.length) {
-            colorIndex = usedColors.length % COLOR_PALETTE.length;
-        }
-        
-        taskColors[taskName] = COLOR_PALETTE[colorIndex];
+        // Pick a random color index from the palette
+        const randomIndex = Math.floor(Math.random() * COLOR_PALETTE.length);
+        taskColors[taskName] = COLOR_PALETTE[randomIndex];
     }
     
     // Save project
