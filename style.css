@@ -257,8 +257,30 @@ header {
 
 .task-list {
     list-style: none;
-    max-height: 300px;
+    max-height: 250px;
     overflow-y: auto;
+    scrollbar-width: auto;
+    scrollbar-color: var(--secondary-color) var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 4px;
+    margin-top: 8px;
+}
+
+/* Custom scrollbar styling for webkit browsers */
+.task-list::-webkit-scrollbar, .log-entries::-webkit-scrollbar {
+    width: 16px;
+}
+
+.task-list::-webkit-scrollbar-track, .log-entries::-webkit-scrollbar-track {
+    background: var(--background-color);
+    border-radius: var(--border-radius);
+}
+
+.task-list::-webkit-scrollbar-thumb, .log-entries::-webkit-scrollbar-thumb {
+    background-color: var(--secondary-color);
+    border-radius: var(--border-radius);
+    border: 2px solid var(--background-color);
 }
 
 .task-item {
@@ -342,6 +364,11 @@ header {
 .log-entries {
     max-height: 200px;
     overflow-y: auto;
+    scrollbar-width: auto;
+    scrollbar-color: var(--secondary-color) var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 4px;
 }
 
 .log-entry {
