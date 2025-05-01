@@ -789,7 +789,11 @@ function createDayView(ctx, filteredLogs) {
     chart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: hours.map(h => `${h}:00`),
+            labels: hours.map(h => {
+                const hour12 = h % 12 || 12; // Convert 0 to 12
+                const ampm = h < 12 ? 'AM' : 'PM';
+                return `${hour12}:00 ${ampm}`;
+            }),
             datasets: datasets
         },
         options: {
